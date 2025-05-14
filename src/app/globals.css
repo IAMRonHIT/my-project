@@ -1,26 +1,95 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Base colors */
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  
+  /* Brand colors */
+  --ai-blue: #0096FF;
+  --ai-blue-light: #33ADFF;
+  --ai-blue-dark: #0078CC;
+  
+  /* UI colors */
+  --success: #00C853;
+  --warning: #FFAB00;
+  --error: #FF3D00;
+  --info: #29B6F6;
+  
+  /* Glass effect variables */
+  --glass-bg: rgba(26, 26, 26, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-highlight: rgba(255, 255, 255, 0.03);
+  --glass-shadow: rgba(0, 0, 0, 0.3);
+  
+  /* Animation timings */
+  --page-transition: 350ms;
+  --data-update: 200ms;
+  --expand-section: 250ms;
+  --chart-reveal: 800ms;
 }
 
-@theme inline {
+:root {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: 'Inter', sans-serif;
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Glass Card Effect */
+.glass-card {
+  position: relative;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--glass-highlight), transparent);
+}
+
+/* Glow Effects */
+.glow-blue {
+  box-shadow: 0 0 15px rgba(0, 150, 255, 0.15);
+}
+
+.glow-success {
+  box-shadow: 0 0 15px rgba(0, 200, 83, 0.15);
+}
+
+.glow-warning {
+  box-shadow: 0 0 15px rgba(255, 171, 0, 0.15);
+}
+
+.glow-error {
+  box-shadow: 0 0 15px rgba(255, 61, 0, 0.15);
+}
+
+/* Animation utility classes */
+.animate-fade {
+  transition: opacity var(--data-update) ease;
+}
+
+.animate-expand {
+  transition: all var(--expand-section) ease;
+}
+
+.animate-slide {
+  transition: transform var(--page-transition) ease, opacity var(--page-transition) ease;
 }
