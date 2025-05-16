@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, FormEvent } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { Button } from './button';
 import { Field, Fieldset, Label } from './fieldset';
 import { Heading, Subheading } from './heading';
@@ -12,10 +13,18 @@ type FormType = 'login' | 'register' | 'forgotPassword';
 
 export function AuthLayout({ children }: { children: React.ReactNode }) {
   const [currentForm, setCurrentForm] = useState<FormType>('login');
+  const router = useRouter();
 
   const switchToRegister = () => setCurrentForm('register');
   const switchToLogin = () => setCurrentForm('login');
   const switchToForgotPassword = () => setCurrentForm('forgotPassword');
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (currentForm === 'login') {
+      router.push('/dashboard');
+    }
+  };
 
   return (
     <main className="flex min-h-dvh flex-col items-center justify-center p-2">
@@ -32,7 +41,7 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
                 </Link>
               </Subheading>
             </div>
-            <Fieldset className="mt-8">
+            <Fieldset className="mt-8" onSubmit={handleSubmit}>
               <Field>
                 <Label htmlFor="login-email">Email address</Label>
                 <Input type="email" id="login-email" name="email" autoComplete="email" required />
