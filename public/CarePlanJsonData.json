@@ -1,0 +1,678 @@
+{
+  "title": "CarePlanJsonData",
+  "type": "object",
+  "patientData": {
+    "patient_full_name": "John David Smith",
+    "patient_age": 55,
+    "patient_gender": "Male",
+    "patient_mrn": "MRN789123",
+    "patient_dob": "1969-07-20",
+    "patient_insurance_plan": "BlueCross BlueShield PPO",
+    "patient_policy_number": "XJ789012345",
+    "patient_primary_provider": "Dr. Emily Carter, MD",
+    "patient_admission_date": "2025-05-10",
+    "allergies": [
+      "Penicillin (rash)"
+    ],
+    "vitalSigns": {
+      "vital_bp": "145/90 mmHg (on admission), 130/82 mmHg (current)",
+      "vital_pulse": "88 bpm (on admission), 76 bpm (current)",
+      "vital_resp_rate": "18 breaths/min",
+      "vital_temp": "37.0\u00b0C (98.6\u00b0F)",
+      "vital_o2sat": "96% on room air",
+      "vital_pain_score": "0/10"
+    },
+    "patient_living_situation": "Lives alone in a two-story house with stairs",
+    "patient_support_system": "Daughter (lives 2 hours away), limited local support",
+    "patient_sdoh_concerns": [
+      "Home safety (stairs)",
+      "Potential difficulty with ADLs post-discharge due to living alone",
+      "Transportation for follow-up appointments",
+      "Financial concerns due to inability to work during recovery"
+    ],
+    "nyha_class_description": "Not Applicable"
+  },
+  "clinicalData": {
+    "primary_diagnosis_text": "Acute Ischemic Stroke, Left Middle Cerebral Artery (MCA) territory (ICD-10: I63.312)",
+    "secondaryDiagnoses": [
+      "Hypertension (ICD-10: I10)",
+      "Hyperlipidemia (ICD-10: E78.5)",
+      "Personal history of TIA (ICD-10: Z86.73)",
+      "Obesity (ICD-10: E66.9)"
+    ],
+    "labs": [
+      {
+        "lab_n_name": "Lipid Panel - LDL",
+        "lab_n_value": "140 mg/dL",
+        "lab_n_flag": "High",
+        "lab_n_trend": "Stable"
+      },
+      {
+        "lab_n_name": "Hemoglobin A1c",
+        "lab_n_value": "5.8%",
+        "lab_n_flag": "Normal",
+        "lab_n_trend": "N/A"
+      },
+      {
+        "lab_n_name": "INR",
+        "lab_n_value": "1.0",
+        "lab_n_flag": "Normal",
+        "lab_n_trend": "Stable"
+      },
+      {
+        "lab_n_name": "Platelet Count",
+        "lab_n_value": "250,000/uL",
+        "lab_n_flag": "Normal",
+        "lab_n_trend": "Stable"
+      }
+    ],
+    "medications": [
+      {
+        "med_n_name": "Aspirin",
+        "med_n_dosage": "81 mg",
+        "med_n_route": "PO",
+        "med_n_frequency": "Once Daily",
+        "med_n_status": "Active",
+        "med_n_pa_required": false
+      },
+      {
+        "med_n_name": "Atorvastatin",
+        "med_n_dosage": "80 mg",
+        "med_n_route": "PO",
+        "med_n_frequency": "Once Daily at bedtime",
+        "med_n_status": "Active",
+        "med_n_pa_required": false
+      },
+      {
+        "med_n_name": "Lisinopril",
+        "med_n_dosage": "20 mg",
+        "med_n_route": "PO",
+        "med_n_frequency": "Once Daily",
+        "med_n_status": "Active",
+        "med_n_pa_required": false
+      }
+    ],
+    "treatments": [
+      {
+        "treatment_n_name": "Physical Therapy Evaluation and Treatment",
+        "treatment_n_status": "Ongoing",
+        "treatment_n_details": "Daily sessions focusing on right-sided weakness, balance, and mobility.",
+        "treatment_n_date": "2025-05-11",
+        "treatment_n_pa_required": true
+      },
+      {
+        "treatment_n_name": "Occupational Therapy Evaluation and Treatment",
+        "treatment_n_status": "Ongoing",
+        "treatment_n_details": "Daily sessions focusing on ADLs, right upper extremity function, and adaptive strategies.",
+        "treatment_n_date": "2025-05-11",
+        "treatment_n_pa_required": true
+      },
+      {
+        "treatment_n_name": "Speech Therapy Evaluation and Treatment",
+        "treatment_n_status": "Ongoing",
+        "treatment_n_details": "Daily sessions for expressive aphasia and dysphagia management.",
+        "treatment_n_date": "2025-05-11",
+        "treatment_n_pa_required": true
+      },
+      {
+        "treatment_n_name": "tPA (Alteplase) Administration",
+        "treatment_n_status": "Completed",
+        "treatment_n_details": "Administered in ED within 3 hours of symptom onset.",
+        "treatment_n_date": "2025-05-10",
+        "treatment_n_pa_required": false
+      }
+    ],
+    "last_imaging_summary": "Initial non-contrast CT Head on 2025-05-10 showed no hemorrhage, with subtle early ischemic changes in the left MCA territory. MRI Brain on 2025-05-10 confirmed acute ischemic infarct in the left MCA distribution. MRA Head and Neck showed mild atherosclerotic disease, no hemodynamically significant stenosis.",
+    "last_ecg_summary": "ECG on 2025-05-10 showed normal sinus rhythm. Continuous telemetry monitoring initiated."
+  },
+  "aiAgents": [
+    {
+      "name": "RonAI Proactive Risk Stratification Agent",
+      "specialty": "Stroke Recurrence Risk Assessment",
+      "confidenceScore": 0.92,
+      "insights": [
+        "Patient has multiple modifiable risk factors: hypertension, hyperlipidemia, obesity.",
+        "History of TIA increases future stroke risk.",
+        "NIHSS score on admission suggests moderate stroke severity."
+      ],
+      "assessmentContribution": "Identified key risk factors for secondary stroke prevention focus.",
+      "planningContribution": "Recommended aggressive lipid and blood pressure management targets. Suggested screening for sleep apnea.",
+      "implementationContribution": "Flagged for adherence monitoring for antihypertensives and statins.",
+      "evaluationContribution": "Will track blood pressure and lipid levels against targets."
+    },
+    {
+      "name": "RonAI Deep Research Agent",
+      "specialty": "Personalized Rehabilitation Strategies",
+      "confidenceScore": 0.88,
+      "insights": [
+        "Evidence supports early, intensive multidisciplinary rehabilitation for improved functional outcomes in moderate MCA strokes.",
+        "Constraint-induced movement therapy (CIMT) may be beneficial for right upper extremity paresis once medically stable.",
+        "Aphasia recovery can be enhanced with technology-assisted speech therapy tools."
+      ],
+      "assessmentContribution": "Provided literature supporting intensive rehab approach.",
+      "planningContribution": "Suggested consideration of CIMT for OT plan. Identified potential assistive tech for ST.",
+      "implementationContribution": "N/A",
+      "evaluationContribution": "Can benchmark patient's progress against expected recovery curves from literature."
+    },
+    {
+      "name": "RonAI Care Orchestration Agent",
+      "specialty": "Post-Acute Care Coordination",
+      "confidenceScore": 0.95,
+      "insights": [
+        "Patient meets criteria for inpatient rehabilitation facility (IRF) stay.",
+        "Coordinated multidisciplinary team meetings.",
+        "Identified need for home safety evaluation prior to eventual discharge home."
+      ],
+      "assessmentContribution": "Compiled patient data for IRF referral packet.",
+      "planningContribution": "Initiated prior authorization for IRF. Scheduled family meeting to discuss discharge plan.",
+      "implementationContribution": "Transmitted necessary documentation to selected IRF. Arranged transportation.",
+      "evaluationContribution": "Will track post-IRF follow-up appointments."
+    },
+    {
+      "name": "RonAI SDoH Integration Agent",
+      "specialty": "Social Determinants of Health Impact Analysis",
+      "confidenceScore": 0.90,
+      "insights": [
+        "Living alone with a two-story home presents significant challenges for post-stroke recovery and fall risk.",
+        "Daughter living out of state limits immediate hands-on caregiver support.",
+        "Potential financial strain may impact access to medications or follow-up care."
+      ],
+      "assessmentContribution": "Highlighted critical SDoH factors influencing discharge safety and adherence.",
+      "planningContribution": "Recommended social work consult for comprehensive SDoH assessment, home safety evaluation, connection to local support services (e.g., Meals on Wheels, transportation assistance), and financial counseling resources.",
+      "implementationContribution": "Flagged care team about importance of simplified medication regimen and clear instructions due to limited immediate support.",
+      "evaluationContribution": "Monitor for missed appointments or medication non-adherence potentially linked to SDoH barriers."
+    }
+  ],
+  "priorAuthItems": [
+    {
+      "pa_n_id": "PA001",
+      "pa_n_item_name": "Inpatient Rehabilitation Facility Stay",
+      "pa_n_type": "Inpatient Admission Potential",
+      "pa_n_status": "Pending Submission",
+      "pa_n_cpt_code": "97000-series (therapy codes); G0237/G0238 (IRF PPS codes)",
+      "pa_n_description": "Intensive multidisciplinary rehabilitation for stroke recovery.",
+      "pa_n_pos_code": "61",
+      "pa_n_units": "Estimated 14 days",
+      "pa_n_dates_of_service": "Estimated 2025-05-17 to 2025-05-31",
+      "pa_n_criteria_met_details": "Acute ischemic stroke with significant functional deficits (NIHSS >5), requires at least 2 therapy disciplines, able to tolerate 3 hours of therapy per day.",
+      "pa_n_estimated_response": "3-5 business days",
+      "pa_n_approval_confidence": "High (90%)",
+      "pa_n_estimated_submission": "2025-05-14"
+    },
+    {
+      "pa_n_id": "PA002",
+      "pa_n_item_name": "Occupational Therapy Services (Outpatient after IRF)",
+      "pa_n_type": "Outpatient Service",
+      "pa_n_status": "Not Yet Submitted",
+      "pa_n_cpt_code": "97110, 97530, 97535",
+      "pa_n_description": "Continued OT for ADL improvement and upper extremity function.",
+      "pa_n_pos_code": "11",
+      "pa_n_units": "2-3 sessions/week for 8 weeks",
+      "pa_n_dates_of_service": "Estimated starting 2025-06-02",
+      "pa_n_criteria_met_details": "Persistent functional deficits post-IRF requiring skilled OT.",
+      "pa_n_approval_confidence": "High (85%)",
+      "pa_n_estimated_submission": "2025-05-28"
+    },
+    {
+      "pa_n_id": "PA003",
+      "pa_n_item_name": "Physical Therapy Services (Outpatient after IRF)",
+      "pa_n_type": "Outpatient Service",
+      "pa_n_status": "Not Yet Submitted",
+      "pa_n_cpt_code": "97110, 97112, 97116",
+      "pa_n_description": "Continued PT for mobility, strength, and balance.",
+      "pa_n_pos_code": "11",
+      "pa_n_units": "2-3 sessions/week for 8 weeks",
+      "pa_n_dates_of_service": "Estimated starting 2025-06-02",
+      "pa_n_criteria_met_details": "Persistent mobility and balance deficits post-IRF requiring skilled PT.",
+      "pa_n_approval_confidence": "High (85%)",
+      "pa_n_estimated_submission": "2025-05-28"
+    },
+    {
+      "pa_n_id": "PA004",
+      "pa_n_item_name": "Speech Therapy Services (Outpatient after IRF)",
+      "pa_n_type": "Outpatient Service",
+      "pa_n_status": "Not Yet Submitted",
+      "pa_n_cpt_code": "92507, 92526",
+      "pa_n_description": "Continued ST for aphasia and dysphagia management.",
+      "pa_n_pos_code": "11",
+      "pa_n_units": "2 sessions/week for 6 weeks",
+      "pa_n_dates_of_service": "Estimated starting 2025-06-02",
+      "pa_n_criteria_met_details": "Persistent communication and swallowing deficits post-IRF requiring skilled ST.",
+      "pa_n_approval_confidence": "Moderate (75%)",
+      "pa_n_estimated_submission": "2025-05-28"
+    },
+    {
+      "pa_n_id": "PA005",
+      "pa_n_item_name": "Transesophageal Echocardiogram (TEE)",
+      "pa_n_type": "Outpatient Procedure",
+      "pa_n_status": "Pending Submission",
+      "pa_n_cpt_code": "93312",
+      "pa_n_description": "To evaluate for cardioembolic source of stroke (e.g., PFO, LAA thrombus).",
+      "pa_n_pos_code": "22",
+      "pa_n_units": "1",
+      "pa_n_dates_of_service": "Estimated 2025-05-16",
+      "pa_n_criteria_met_details": "Cryptogenic stroke after initial TTE inconclusive for definite source; patient has risk factors.",
+      "pa_n_estimated_response": "1-2 business days",
+      "pa_n_approval_confidence": "High (90%)",
+      "pa_n_estimated_submission": "2025-05-13"
+    },
+    {
+      "pa_n_id": "PA006",
+      "pa_n_item_name": "External Wearable Cardiac Monitor (e.g., Mobile Cardiac Telemetry)",
+      "pa_n_type": "Outpatient Service",
+      "pa_n_status": "Not Yet Submitted",
+      "pa_n_cpt_code": "93228",
+      "pa_n_description": "30-day cardiac monitoring to detect paroxysmal atrial fibrillation post-stroke.",
+      "pa_n_pos_code": "11",
+      "pa_n_units": "1",
+      "pa_n_dates_of_service": "Estimated upon discharge from IRF",
+      "pa_n_criteria_met_details": "Cryptogenic ischemic stroke, rule out paroxysmal AFib as etiology.",
+      "pa_n_approval_confidence": "High (95%)",
+      "pa_n_estimated_submission": "2025-05-29"
+    }
+  ],
+  "sourcesData": [
+    {
+      "source_n_id": "AHAASA2019",
+      "source_n_title": "2019 AHA/ASA Guidelines for the Early Management of Patients With Acute Ischemic Stroke",
+      "source_n_type": "Clinical Practice Guideline",
+      "source_n_url": "https://www.ahajournals.org/doi/10.1161/STR.0000000000000211",
+      "source_n_snippet": "Recommendations for acute medical therapy, including tPA, and diagnostic workup.",
+      "source_n_retrieval_date": "2025-05-10",
+      "source_n_agent_source": "RonAI Deep Research Agent"
+    },
+    {
+      "source_n_id": "RonStrokeCarePathV3",
+      "source_n_title": "Stroke or TIA (within 6 months) Clinical Guidelines for Medical Necessity Review V3.0",
+      "source_n_type": "Internal Care Path Document",
+      "source_n_url": "Internal Document System",
+      "source_n_snippet": "Guidelines for services, medical necessity criteria, and prior authorization requirements for stroke patients.",
+      "source_n_retrieval_date": "2025-05-12",
+      "source_n_agent_source": "RonAI Care Orchestration Agent"
+    },
+    {
+      "source_n_id": "UpToDateStrokeRehab",
+      "source_n_title": "UpToDate: Stroke Rehabilitation: Goals and Recovery",
+      "source_n_type": "Medical Reference",
+      "source_n_url": "https://www.uptodate.com",
+      "source_n_snippet": "Overview of rehabilitation goals, timelines, and types of therapy for stroke survivors.",
+      "source_n_retrieval_date": "2025-05-12",
+      "source_n_agent_source": "RonAI Deep Research Agent"
+    }
+  ],
+  "assessment_subjective_chief_complaint": "Sudden onset of right-sided weakness, difficulty speaking, and right facial droop.",
+  "assessment_subjective_hpi": "Patient is a 55-year-old male with a history of hypertension and hyperlipidemia who experienced sudden onset of right arm and leg weakness, slurred speech, and right facial droop at approximately 8:00 AM on 2025-05-10 while at home. EMS was called, and he arrived at the ED at 8:45 AM. Last known well was 7:30 AM. Patient reports some associated dizziness but denies headache, visual changes, or chest pain. Daughter provided some history via phone.",
+  "assessment_subjective_goals": "Patient expresses desire to 'get back to normal' and 'be able to walk and talk again.' Short-term goals: improve ability to communicate basic needs, participate in therapies. Long-term goals: regain independence in ADLs, return to work if possible, reduce risk of another stroke.",
+  "assessment_subjective_other": "Patient is right-hand dominant. Expresses anxiety about his current condition and future recovery. Concerns noted about managing at home alone given current deficits and stairs in his home.",
+  "assessment_objective_vitals_summary": "On admission: BP 145/90, HR 88, RR 18, Temp 37.0C, SpO2 96% RA. Current: BP 130/82, HR 76, RR 16, Temp 37.1C, SpO2 97% RA.",
+  "assessment_objective_physical_exam": "General: Alert, appears stated age, in no acute distress. Neuro: NIHSS on admission was 10. Cranial Nerves: Right facial droop (CN VII). Motor: Right upper extremity 2/5 strength, Right lower extremity 3/5 strength. Left upper and lower extremities 5/5. Sensory: Intact to light touch bilaterally. Cerebellar: Unable to fully assess due to weakness. Language: Expressive aphasia, understands simple commands. Speech: Dysarthric. Reflexes: 2+ and symmetric, right Babinski positive. Gait: Unable to ambulate. Cardiovascular: Regular rate and rhythm, no murmurs. Respiratory: Clear to auscultation bilaterally.",
+  "assessment_objective_diagnostics": "CT Head (2025-05-10): No acute hemorrhage. MRI Brain (2025-05-10): Acute ischemic infarct in the left MCA territory. MRA Head/Neck (2025-05-10): Mild diffuse atherosclerotic disease, no hemodynamically significant stenosis. TTE (2025-05-11): LVEF 55-60%, no significant valvular abnormalities, no LV thrombus. Carotid Duplex (2025-05-11): Mild bilateral carotid plaque, <50% stenosis bilaterally. Labs: LDL 140 mg/dL, otherwise unremarkable CBC, BMP, Coags. Bedside swallow screen: Failed, at risk for aspiration.",
+  "assessment_objective_meds_reviewed": "Home meds: Lisinopril 10mg daily (reported adherence fair). Hospital meds initiated: Aspirin 81mg daily, Atorvastatin 80mg daily, Lisinopril 20mg daily (dose increased). Enoxaparin 40mg SQ daily for DVT prophylaxis.",
+  "assessment_objective_other": "Patient requires assistance with all ADLs. Modified diet (pureed foods, nectar-thick liquids) initiated based on swallow screen. Fall precautions in place.",
+  "recommendedAssessmentsList": [
+    {
+      "item": "Formal Swallow Evaluation by Speech Therapy",
+      "rationale": "Failed bedside swallow screen, determine appropriate diet consistency and aspiration precautions.",
+      "status": "completed"
+    },
+    {
+      "item": "Physical Therapy Evaluation",
+      "rationale": "Assess mobility, strength, balance, and develop rehabilitation plan.",
+      "status": "completed"
+    },
+    {
+      "item": "Occupational Therapy Evaluation",
+      "rationale": "Assess ADL performance, upper extremity function, and cognitive-perceptual skills.",
+      "status": "completed"
+    },
+    {
+      "item": "Transesophageal Echocardiogram (TEE)",
+      "rationale": "Further evaluate for cardioembolic source of stroke (e.g., PFO, LAA thrombus, aortic arch plaque) as TTE was non-diagnostic for embolic source.",
+      "status": "pending"
+    },
+    {
+      "item": "Repeat Lipid Panel in 4-6 weeks",
+      "rationale": "Monitor efficacy of high-intensity statin therapy.",
+      "status": "pending"
+    },
+    {
+      "item": "HbA1c",
+      "rationale": "Screen for undiagnosed diabetes mellitus, a stroke risk factor.",
+      "status": "completed"
+    },
+    {
+      "item": "Social Work/Case Management Consult",
+      "rationale": "Assess SDoH, discharge planning needs, home safety, caregiver support, and connection to community resources.",
+      "status": "in_progress"
+    },
+    {
+      "item": "Continuous Cardiac Monitoring (Telemetry)",
+      "rationale": "Detect paroxysmal atrial fibrillation or other arrhythmias.",
+      "status": "in_progress"
+    }
+  ],
+  "nursingDiagnoses": [
+    {
+      "diagnosis_nanda": "Impaired physical mobility",
+      "diagnosis_related_to": "Neuromuscular impairment (right-sided hemiparesis) secondary to left MCA ischemic stroke",
+      "diagnosis_evidence": [
+        "Inability to ambulate independently",
+        "Decreased muscle strength in right upper and lower extremities (RUE 2/5, RLE 3/5)",
+        "Requires assistance for transfers and bed mobility"
+      ],
+      "diagnosis_is_risk": false,
+      "goals": [
+        {
+          "goal_description": "Patient will demonstrate improved ability to transfer from bed to chair with minimal assistance by end of week.",
+          "goal_target_date": "2025-05-17",
+          "goal_outcomes": [
+            "Patient transfers with standby assist of one person.",
+            "Patient verbalizes understanding of safe transfer tec              "goal_rationale": "Improving transfer ability is a key step towards increased independence and safety.",
+              "interventions": [
+                {
+                  "interventionText": "Collaborate with Physical Therapy for daily mobility training and transfer practice.",
+                  "interventionType": "general",
+                  "rationale": "PT specializes in mobility and safe transfers."
+                },
+                {
+                  "interventionText": "Implement turning and repositioning schedule every 2 hours while in bed.",
+                  "interventionType": "monitoring",
+                  "rationale": "Prevents skin breakdown and contractures."
+                },
+                {
+                  "interventionText": "Encourage active and passive range of motion exercises for right extremities.",
+                  "interventionType": "general",
+                  "rationale": "Maintains joint mobility and muscle tone."
+                }
+              ],
+              "evaluation": {
+                "evaluationText": "Goal partially met. Patient able to transfer with moderate assistance of one. Continue plan.",
+                "evaluationMethod": "Observation of transfers, patient report.",
+                "evaluationTargetDate": "2025-05-17",
+                "evaluationStatus": "partially_met"
+              }
+            },
+            {
+              "goal_description": "Patient will ambulate 50 feet with an assistive device and supervision by discharge to IRF.",
+              "goal_target_date": "2025-05-17",
+              "goal_outcomes": [
+                "Patient safely ambulates 50 feet using a walker.",
+                "Patient demonstrates proper use of assistive device."
+              ],
+              "goal_rationale": "Functional ambulation is crucial for participation in IRF program and eventual home discharge.",
+              "interventions": [
+                {
+                  "interventionText": "Reinforce PT recommendations for gait training.",
+                  "interventionType": "general",
+                  "rationale": "Consistency in approach enhances learning."
+                },
+                {
+                  "interventionText": "Ensure clear pathways and appropriate footwear during ambulation attempts.",
+                  "interventionType": "monitoring",
+                  "rationale": "Maximizes safety and reduces fall risk."
+                }
+              ],
+              "evaluation": {
+                "evaluationText": "Ongoing. Patient currently ambulating 10 feet with walker and moderate assist. Continue plan.",
+                "evaluationMethod": "Observation of ambulation, distance measurement.",
+                "evaluationTargetDate": "2025-05-17",
+                "evaluationStatus": "ongoing"
+              }
+            }
+          ]
+        },
+        {
+          "diagnosis_nanda": "Impaired verbal communication",
+          "diagnosis_related_to": "Cerebral injury (left MCA stroke) affecting speech centers",
+          "diagnosis_evidence": [
+            "Expressive aphasia",
+            "Word-finding difficulty",
+            "Dysarthria (slurred speech)"
+          ],
+          "diagnosis_is_risk": false,
+          "goals": [
+            {
+              "goal_description": "Patient will effectively communicate basic needs using verbal or non-verbal methods by end of week.",
+              "goal_target_date": "2025-05-17",
+              "goal_outcomes": [
+                "Patient successfully communicates needs (e.g., pain, toileting, food/drink) to staff/family.",
+                "Patient exhibits decreased frustration with communication attempts."
+              ],
+              "goal_rationale": "Effective communication is essential for safety, care, and psychological well-being.",
+              "interventions": [
+                {
+                  "interventionText": "Collaborate with Speech Therapy for individualized communication strategies and exercises.",
+                  "interventionType": "general",
+                  "rationale": "ST provides expert intervention for aphasia and dysarthria."
+                },
+                {
+                  "interventionText": "Provide communication aids (e.g., picture board, whiteboard, yes/no questions).",
+                  "interventionType": "general",
+                  "rationale": "Facilitates alternative communication channels."
+                },
+                {
+                  "interventionText": "Allow adequate time for patient to respond; do not interrupt or finish sentences.",
+                  "interventionType": "psychosocial",
+                  "rationale": "Reduces pressure and frustration, encourages attempts."
+                },
+                {
+                  "interventionText": "Educate family on effective communication techniques.",
+                  "interventionType": "health_teaching",
+                  "rationale": "Promotes consistent support and understanding."
+                }
+              ],
+              "evaluation": {
+                "evaluationText": "Goal partially met. Patient able to communicate basic needs with use of picture board and gestures. Verbal communication remains limited. Continue plan.",
+                "evaluationMethod": "Observation of communication attempts, patient/family report.",
+                "evaluationTargetDate": "2025-05-17",
+                "evaluationStatus": "partially_met"
+              }
+            }
+          ]
+        },
+        {
+          "diagnosis_nanda": "Risk for aspiration",
+          "diagnosis_related_to": "Dysphagia secondary to neuromuscular impairment from stroke",
+          "diagnosis_evidence": [],
+          "diagnosis_is_risk": true,
+          "diagnosis_risk_factors": [
+            "Failed bedside swallow screen",
+            "Observed coughing with thin liquids prior to formal eval",
+            "Right facial weakness affecting oral motor control"
+          ],
+          "goals": [
+            {
+              "goal_description": "Patient will maintain a patent airway and demonstrate no signs or symptoms of aspiration throughout hospitalization.",
+              "goal_target_date": "2025-05-17",
+              "goal_outcomes": [
+                "Clear breath sounds on auscultation.",
+                "Absence of coughing/choking during PO intake.",
+                "Afebrile."
+              ],
+              "goal_rationale": "Preventing aspiration pneumonia is critical for recovery.",
+              "interventions": [
+                {
+                  "interventionText": "Implement Speech Therapy recommendations for diet consistency (e.g., pureed diet, nectar-thick liquids).",
+                  "interventionType": "general",
+                  "rationale": "Ensures safest PO intake based on assessed swallow function."
+                },
+                {
+                  "interventionText": "Position patient upright (90 degrees if possible) during and for 30-60 minutes after meals.",
+                  "interventionType": "general",
+                  "rationale": "Utilizes gravity to reduce aspiration risk."
+                },
+                {
+                  "interventionText": "Monitor for signs of aspiration (coughing, choking, wet voice, fever, increased work of breathing).",
+                  "interventionType": "monitoring",
+                  "rationale": "Early detection allows for prompt intervention."
+                },
+                {
+                  "interventionText": "Provide oral care before and after meals.",
+                  "interventionType": "general",
+                  "rationale": "Reduces bacterial load in oral cavity."
+                }
+              ],
+              "evaluation": {
+                "evaluationText": "Goal met. Patient tolerating prescribed modified diet without overt signs of aspiration. Continue current precautions.",
+                "evaluationMethod": "Observation during meals, respiratory assessment, temperature monitoring.",
+                "evaluationTargetDate": "2025-05-17",
+                "evaluationStatus": "met"
+              }
+            }
+          ]
+        },
+        {
+          "diagnosis_nanda": "Self-care deficit (feeding, bathing/hygiene, dressing/grooming, toileting)",
+          "diagnosis_related_to": "Neuromuscular impairment (right-sided hemiparesis), perceptual deficits, and decreased endurance secondary to stroke",
+          "diagnosis_evidence": [
+            "Requires assistance with all ADLs",
+            "Unable to use right arm effectively for self-care tasks",
+            "Patient verbalizes frustration with dependence"
+          ],
+          "diagnosis_is_risk": false,
+          "goals": [
+            {
+              "goal_description": "Patient will participate in self-care activities to the maximum of his ability, utilizing adaptive strategies and equipment as needed, by discharge to IRF.",
+              "goal_target_date": "2025-05-17",
+              "goal_outcomes": [
+                "Patient performs at least 2 ADLs with modified independence (using adaptive equipment or setup assistance).",
+                "Patient verbalizes understanding of adaptive techniques taught by OT."
+              ],
+              "goal_rationale": "Promoting independence in self-care enhances self-esteem and prepares for rehabilitation.",
+              "interventions": [
+                {
+                  "interventionText": "Collaborate with Occupational Therapy for ADL retraining, adaptive equipment recommendations, and energy conservation techniques.",
+                  "interventionType": "general",
+                  "rationale": "OT specializes in maximizing functional independence in ADLs."
+                },
+                {
+                  "interventionText": "Assist with ADLs only as needed, encouraging patient to perform tasks independently on his left side.",
+                  "interventionType": "general",
+                  "rationale": "Promotes self-efficacy and active participation."
+                },
+                {
+                  "interventionText": "Break down self-care tasks into manageable steps.",
+                  "interventionType": "general",
+                  "rationale": "Reduces cognitive load and makes tasks less overwhelming."
+                },
+                {
+                  "interventionText": "Provide positive reinforcement for efforts and accomplishments.",
+                  "interventionType": "psychosocial",
+                  "rationale": "Encourages continued participation and motivation."
+                }
+              ],
+              "evaluation": {
+                "evaluationText": "Ongoing. Patient able to feed self with setup and use of adaptive utensils. Requires moderate assistance for bathing and dressing. Continue plan.",
+                "evaluationMethod": "Observation of ADL performance, patient report.",
+                "evaluationTargetDate": "2025-05-17",
+                "evaluationStatus": "ongoing"
+              }
+            }
+          ]
+        },
+        {
+          "diagnosis_nanda": "Deficient knowledge",
+          "diagnosis_related_to": "New diagnosis of stroke, complex medical regimen, and secondary prevention strategies",
+          "diagnosis_evidence": [
+            "Patient and family verbalize limited understanding of stroke.",
+            "Multiple new medications initiated.",
+            "Lack of familiarity with risk factor modification."
+          ],
+          "diagnosis_is_risk": false,
+          "goals": [
+            {
+              "goal_description": "Patient and family will verbalize understanding of stroke, prescribed medications, warning signs of recurrent stroke, and necessary lifestyle modifications by discharge to IRF.",
+              "goal_target_date": "2025-05-17",
+              "goal_outcomes": [
+                "Patient/family correctly state purpose, dose, frequency, and common side effects of key medications (aspirin, atorvastatin, lisinopril).",
+                "Patient/family identify at least 3 warning signs of stroke (FAST).",
+                "Patient/family list at least 3 personal risk factors and strategies to manage them."
+              ],
+              "goal_rationale": "Empowering patient and family with knowledge is crucial for adherence, secondary prevention, and timely action for future events.",
+              "interventions": [
+                {
+                  "interventionText": "Provide clear, concise information about stroke using teach-back method (pathophysiology, recovery process, risk factors).",
+                  "interventionType": "health_teaching",
+                  "rationale": "Ensures comprehension and retention of information."
+                },
+                {
+                  "interventionText": "Educate on all new medications: name, purpose, dose, schedule, potential side effects, importance of adherence.",
+                  "interventionType": "health_teaching",
+                  "rationale": "Promotes safe and effective medication use."
+                },
+                {
+                  "interventionText": "Reinforce FAST acronym for stroke recognition and importance of calling 911 immediately.",
+                  "interventionType": "health_teaching",
+                  "rationale": "Timely intervention for recurrent stroke minimizes disability."
+                },
+                {
+                  "interventionText": "Discuss modifiable risk factors (hypertension, hyperlipidemia, obesity, diet, exercise, smoking cessation if applicable) and strategies for management.",
+                  "interventionType": "health_teaching",
+                  "rationale": "Reduces risk of secondary stroke."
+                },
+         
+                {
+                  "interventionText": "Provide written educational materials and referrals to stroke support resources (e.g., American Stroke Association).",
+                  "interventionType": "health_teaching",
+                  "rationale": "Offers ongoing support and information post-discharge."
+                }
+              ],
+              "evaluation": {
+                "evaluationText": "Ongoing. Patient and daughter verbalized understanding of medications and FAST. Further reinforcement needed on risk factor modification specific to diet and exercise. Continue plan.",
+                "evaluationMethod": "Patient/family teach-back, verbal questioning.",
+                "evaluationTargetDate": "2025-05-17",
+                "evaluationStatus": "ongoing"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "interdisciplinaryPlan": [
+    {
+      "discipline": "Neurology",
+      "plan_item": "Continue to monitor neurological status. Titrate antihypertensives to target BP <130/80 mmHg. Optimize statin therapy. Finalize etiology workup (TEE)."
+    },
+    {
+      "discipline": "Physical Therapy",
+      "plan_item": "Daily sessions: Focus on strengthening right lower extremity, improving balance, gait training with assistive device, stair training if appropriate for home environment."
+    },
+    {
+      "discipline": "Occupational Therapy",
+      "plan_item": "Daily sessions: Focus on ADL retraining (dressing, bathing, grooming), right upper extremity functional activities, compensatory strategies, adaptive equipment assessment."
+    },
+    {
+      "discipline": "Speech Therapy",
+      "plan_item": "Daily sessions: Implement strategies for expressive aphasia (e.g., melodic intonation therapy, communication boards). Continue dysphagia management with diet modification and swallowing exercises. Cognitive-linguistic tasks as appropriate."
+    },
+    {
+      "discipline": "Case Management/Social Work",
+      "plan_item": "Finalize arrangements for IRF admission. Conduct family meeting to discuss care plan, SDoH, and post-IRF needs. Provide resources for caregiver support and financial assistance. Coordinate home safety evaluation."
+    },
+    {
+      "discipline": "Registered Dietitian",
+      "plan_item": "Provide education on heart-healthy, low-sodium diet for blood pressure and lipid management. Reinforce dysphagia diet recommendations."
+    },
+    {
+      "discipline": "Pharmacy",
+      "plan_item": "Medication reconciliation at discharge. Provide comprehensive counseling on new and changed medications to patient and daughter."
+    },
+    {
+      "discipline": "Nursing",
+      "plan_item": "Administer medications as ordered. Monitor vital signs and neuro status. Assist with ADLs and mobility. Reinforce therapy goals. Provide patient/family education. Ensure safety precautions."
+    }
+  ],
+  "overall_plan_summary": "Mr. Smith is a 55-year-old male recovering from an acute left MCA ischemic stroke. Current plan focuses on intensive multidisciplinary rehabilitation (PT, OT, ST) to maximize functional recovery, medical optimization for secondary stroke prevention (BP control, lipid management, antiplatelet therapy), completion of etiological workup (TEE), and comprehensive discharge planning for transition to an Inpatient Rehabilitation Facility. SDoH factors including living situation and support system are being addressed by social work.",
+  "next_steps": [
+    "Finalize prior authorization and transfer to Inpatient Rehabilitation Facility within 24-48 hours.",
+    "Complete TEE to further investigate potential cardioembolic source.",
+    "Ensure patient and daughter have a clear understanding of discharge medications and follow-up plan.",
+    "Schedule outpatient follow-up with PCP and Neurologist 1-2 weeks post-IRF discharge.",
+    "Initiate 30-day external cardiac monitoring upon IRF discharge if TEE is unrevealing and paroxysmal AFib remains a concern."
+  ],
+  "notification_title": "Care Plan: John Smith - Acute Stroke Recovery & Rehabilitation",
+  "notification_message": "John Smith, 55M, post-acute L MCA ischemic stroke. Plan: Maximize functional recovery via intensive rehab, optimize secondary prevention, coordinate IRF transfer.",
+  "notification_detail_1": "Key Focus: PT/OT/ST daily. BP/Lipid management. TEE pending. SDoH needs addressed by SW.",
+  "notification_detail_2": "Next Major Step: Transfer to Inpatient Rehabilitation Facility. Education for patient/family ongoing."
+}
