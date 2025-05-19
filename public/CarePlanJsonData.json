@@ -1,0 +1,39 @@
+{
+  "patientData": {
+    "full_name": "John Smith",
+    "mrn": "JS123456",
+    "dob": "1980-05-15",
+    "primary_diagnosis": "Ischemic stroke",
+    "admission_date": "2024-01-10",
+    "patient_sdoh_concerns": ["Lives alone in two-story home"],
+    "allergies": ["Penicillin"],
+    "status": "Active Inpatient"
+  },
+  "clinicalData": {
+    "primary_diagnosis_text": "Left middle cerebral artery stroke",
+    "medications": ["Aspirin", "Atorvastatin"],
+    "labs": [],
+    "last_imaging_summary": "CT head: no hemorrhage",
+    "last_ecg_summary": "Normal sinus rhythm"
+  },
+  "priorAuthorizations": [
+    {
+      "id": "PA001",
+      "description": "Inpatient Rehabilitation Facility Stay",
+      "status": "Pending Submission",
+      "approval_confidence": 0.9,
+      "cpt_code": ["XYZ123"],
+      "criteria_met_details": "Meets IRF criteria",
+      "estimated_submission": "2024-02-20"
+    },
+    {
+      "id": "PA005",
+      "description": "Transesophageal Echocardiogram (TEE)",
+      "status": "Not Yet Submitted",
+      "approval_confidence": 0.85,
+      "cpt_code": ["TEE001"],
+      "criteria_met_details": "Stroke workup",
+      "estimated_submission": "2024-02-25"
+    }
+  ]
+}
