@@ -18,7 +18,7 @@ import {
 } from '@/components/sidebar'; // Sidebar components
 import { SidebarLayout } from '@/components/sidebar-layout'; // SidebarLayout component
 import { Avatar } from '@/components/avatar'; // Assuming Catalyst Avatar
-import { MagnifyingGlassIcon, Cog8ToothIcon, ArrowRightStartOnRectangleIcon } from '@heroicons/react/24/outline'; // Example icons
+import { HomeIcon, ClipboardDocumentListIcon, BanknotesIcon, CpuChipIcon, MagnifyingGlassIcon, Cog8ToothIcon, ArrowRightStartOnRectangleIcon } from '@heroicons/react/24/outline';
 import { Strong } from '@/components/text'; // Assuming Catalyst Text components
 
 export default function DashboardLayout({
@@ -28,10 +28,10 @@ export default function DashboardLayout({
 }) {
   // Placeholder navigation items
   const navigation = [
-    { name: 'Dashboard Home', href: '/dashboard', current: true }, // Example
-    { name: 'Prior Authorization', href: '#prior-auth', current: false },
-    { name: 'Claims Management', href: '#claims-mgmt', current: false },
-    { name: 'Agent Monitoring', href: '#agent-monitor', current: false },
+    { name: 'Dashboard Home', href: '/dashboard', icon: HomeIcon, current: true },
+    { name: 'Prior Authorization', href: '#prior-auth', icon: ClipboardDocumentListIcon, current: false },
+    { name: 'Claims Management', href: '#claims-mgmt', icon: BanknotesIcon, current: false },
+    { name: 'Agent Monitoring', href: '#agent-monitor', icon: CpuChipIcon, current: false },
   ];
 
   return (
@@ -51,7 +51,7 @@ export default function DashboardLayout({
         </Navbar>
       }
       sidebar={
-        <Sidebar>
+        <Sidebar className="bg-gradient-to-b from-zinc-900 via-zinc-800 to-black text-zinc-200 shadow-xl">
           <SidebarHeader>
             {/* Logo can go here if desired, or a title */}
             <Strong className="text-xl text-white">Ron AI</Strong>
@@ -60,17 +60,17 @@ export default function DashboardLayout({
             <SidebarSection>
               {navigation.map((item) => (
                 <SidebarItem key={item.name} href={item.href} current={item.current}>
-                  {/* Add icons here if available/desired */}
+                  {item.icon && <item.icon className="w-5 h-5" />}
                   <SidebarLabel>{item.name}</SidebarLabel>
                 </SidebarItem>
               ))}
             </SidebarSection>
-            <SidebarSection className="mt-auto">
+            <SidebarSection className="mt-auto border-t border-zinc-800 pt-4">
               <SidebarItem href="#">
                 <Cog8ToothIcon />
                 <SidebarLabel>Settings</SidebarLabel>
               </SidebarItem>
-              <SidebarItem href="/logout"> {/* Or handle logout via function */}
+              <SidebarItem href="/logout">
                 <ArrowRightStartOnRectangleIcon />
                 <SidebarLabel>Logout</SidebarLabel>
               </SidebarItem>

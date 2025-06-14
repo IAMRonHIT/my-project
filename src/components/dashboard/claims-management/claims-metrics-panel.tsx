@@ -143,7 +143,7 @@ export function ClaimsMetricsPanel({ className }: ClaimsMetricsPanelProps) {
   return (
     <div className={clsx("grid grid-cols-1 lg:grid-cols-3 gap-4", className)}>
       {/* Top metrics */}
-      <GlassCard className="p-5">
+      <GlassCard className="p-5" glow="blue">
         <h3 className="text-zinc-400 text-sm font-medium mb-4">Clean Claims Rate</h3>
         <div className="flex items-center justify-center h-32">
           <div className="text-center">
@@ -164,7 +164,7 @@ export function ClaimsMetricsPanel({ className }: ClaimsMetricsPanelProps) {
         </div>
       </GlassCard>
       
-      <GlassCard className="p-5">
+      <GlassCard className="p-5" glow="blue">
         <h3 className="text-zinc-400 text-sm font-medium mb-4">Average Reimbursement Time</h3>
         <div className="flex items-center justify-center h-32">
           <div className="text-center">
@@ -184,7 +184,7 @@ export function ClaimsMetricsPanel({ className }: ClaimsMetricsPanelProps) {
         </div>
       </GlassCard>
       
-      <GlassCard className="p-5">
+      <GlassCard className="p-5" glow="blue">
         <h3 className="text-zinc-400 text-sm font-medium mb-4">Total Reimbursement (MTD)</h3>
         <div className="flex items-center justify-center h-32">
           <div className="text-center">
@@ -208,7 +208,7 @@ export function ClaimsMetricsPanel({ className }: ClaimsMetricsPanelProps) {
       </GlassCard>
 
       {/* AR Aging */}
-      <GlassCard className="p-5 lg:col-span-2">
+      <GlassCard className="p-5 lg:col-span-2" glow="blue">
         <h3 className="text-zinc-400 text-sm font-medium mb-4">AR Aging</h3>
         <div className="space-y-4">
           <div className="flex flex-col">
@@ -248,7 +248,7 @@ export function ClaimsMetricsPanel({ className }: ClaimsMetricsPanelProps) {
       </GlassCard>
 
       {/* Payer Performance */}
-      <GlassCard className="p-5">
+      <GlassCard className="p-5" glow="blue">
         <h3 className="text-zinc-400 text-sm font-medium mb-4">Payer Performance</h3>
         <div className="h-64">
           <ChartContainer>
