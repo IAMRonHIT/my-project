@@ -32,6 +32,7 @@ export default function DashboardLayout({
     { name: 'Prior Authorization', href: '#prior-auth', current: false },
     { name: 'Claims Management', href: '#claims-mgmt', current: false },
     { name: 'Agent Monitoring', href: '#agent-monitor', current: false },
+    { name: 'Command Center', href: '/dashboard/command-center', current: false },
   ];
 
   return (
