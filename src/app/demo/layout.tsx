@@ -26,6 +26,7 @@ export default function DemoLayout({ children }: { children: React.ReactNode }) 
     <PatientDataProvider>
       <GuidedTourProvider>
         <SidebarLayout
+          navbar={<div className="text-white font-semibold">Ron AI Demo</div>}
           sidebar={
             <Sidebar>
             <SidebarHeader>

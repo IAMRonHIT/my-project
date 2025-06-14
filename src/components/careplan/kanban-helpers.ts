@@ -53,11 +53,11 @@ export interface KanbanTask {
   title: string;
   type: 'assessment' | 'intervention' | 'evaluation';
   status: TaskStatus;
-  priority: string;
+  priority?: string;
   assignee?: string;
 }
 
-export const generateKanbanData = (_data: CarePlanDataForKanban): { epics: KanbanEpic[]; tasks: KanbanTask[] } => {
+export const generateKanbanData = (): { epics: KanbanEpic[]; tasks: KanbanTask[] } => {
   return { epics: [], tasks: [] }; // simple stub
 };
 
