@@ -50,6 +50,58 @@ export function PriorAuthMetrics({ className }: PriorAuthMetricsProps) {
   const approvalRate = 94;
   const pendingAuths = 46;
   const completedToday = 27;
+
+  const approvalTrendData = {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    datasets: [
+      {
+        label: 'Approval %',
+        data: [90, 91, 92, 93, 94, 94],
+        borderColor: chartColors.blue,
+        backgroundColor: chartColors.blueAlpha,
+        borderWidth: 2,
+        tension: 0.4,
+        fill: true,
+        pointRadius: 0,
+      },
+    ],
+  };
+
+  const miniLineOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      y: { display: false },
+      x: { display: false },
+    },
+    plugins: { legend: { display: false }, tooltip: { enabled: false } },
+  };
+
+  const statusTrendData = {
+    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+    datasets: [
+      {
+        label: 'Pending',
+        data: [40, 42, 39, 50, 46],
+        borderColor: chartColors.yellow,
+        backgroundColor: chartColors.yellowAlpha,
+        tension: 0.4,
+        fill: true,
+        pointRadius: 0,
+        borderWidth: 2,
+      },
+      {
+        label: 'Completed',
+        data: [20, 22, 25, 26, 27],
+        borderColor: chartColors.green,
+        backgroundColor: chartColors.greenAlpha,
+        tension: 0.4,
+        fill: true,
+        pointRadius: 0,
+        borderWidth: 2,
+      },
+    ],
+  };
   
   // Denial reasons chart data
   const denialData = {
@@ -181,7 +233,7 @@ export function PriorAuthMetrics({ className }: PriorAuthMetricsProps) {
   const donutOptions = {
     responsive: true,
     maintainAspectRatio: false,
-    cutout: '70%',
+    cutout: '75%',
     plugins: {
       legend: {
         position: 'right' as const,
@@ -248,7 +300,7 @@ export function PriorAuthMetrics({ className }: PriorAuthMetricsProps) {
       </GlassCard>
       
       {/* Approval Rate */}
-      <GlassCard className="lg:col-span-1">
+      <GlassCard className="lg:col-span-1" glow="blue">
         <div className="p-5 h-full flex flex-col">
           <h3 className="text-zinc-400 text-sm font-medium mb-2">Approval Rate</h3>
           <div className="flex-1 flex flex-col items-center justify-center">
@@ -258,7 +310,7 @@ export function PriorAuthMetrics({ className }: PriorAuthMetricsProps) {
                 suffix="%"
                 className="text-4xl font-bold text-white"
               />
-              <motion.div 
+              <motion.div
                 className="absolute -top-1 -right-7 bg-success rounded-md px-1.5 py-0.5 text-xs font-medium text-white"
                 animate={{ y: [0, -2, 0] }}
                 transition={{ repeat: Infinity, duration: 2 }}
@@ -270,12 +322,15 @@ export function PriorAuthMetrics({ className }: PriorAuthMetricsProps) {
               <CheckIcon className="h-4 w-4 mr-1.5 text-success" />
               <span>Higher than industry average</span>
             </div>
+            <div className="w-full h-16 mt-4">
+              <Line options={miniLineOptions} data={approvalTrendData} />
+            </div>
           </div>
         </div>
       </GlassCard>
       
       {/* Pending & Completed */}
-      <GlassCard className="lg:col-span-1">
+      <GlassCard className="lg:col-span-1" glow="blue">
         <div className="p-5 h-full flex flex-col">
           <h3 className="text-zinc-400 text-sm font-medium mb-4">Status</h3>
           <div className="grid grid-cols-2 gap-4 flex-1">
@@ -302,11 +357,14 @@ export function PriorAuthMetrics({ className }: PriorAuthMetricsProps) {
               </div>
             </div>
           </div>
+          <div className="w-full h-16 mt-4">
+            <Line options={miniLineOptions} data={statusTrendData} />
+          </div>
         </div>
       </GlassCard>
       
       {/* Denial Reasons */}
-      <GlassCard className="lg:col-span-2">
+      <GlassCard className="lg:col-span-2" glow="blue">
         <div className="p-5">
           <h3 className="text-zinc-400 text-sm font-medium mb-2">Denial Reasons</h3>
           <ChartContainer height={200}>
@@ -316,7 +374,7 @@ export function PriorAuthMetrics({ className }: PriorAuthMetricsProps) {
       </GlassCard>
       
       {/* Heat Map Visualization (simplified) */}
-      <GlassCard className="lg:col-span-2">
+      <GlassCard className="lg:col-span-2" glow="blue">
         <div className="p-5">
           <h3 className="text-zinc-400 text-sm font-medium mb-4">Time to Approval by Payer</h3>
           <div className="space-y-3">
