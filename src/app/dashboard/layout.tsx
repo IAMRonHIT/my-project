@@ -28,10 +28,11 @@ export default function DashboardLayout({
 }) {
   // Placeholder navigation items
   const navigation = [
-    { name: 'Dashboard Home', href: '/dashboard', icon: HomeIcon, current: true },
-    { name: 'Prior Authorization', href: '#prior-auth', icon: ClipboardDocumentListIcon, current: false },
-    { name: 'Claims Management', href: '#claims-mgmt', icon: BanknotesIcon, current: false },
-    { name: 'Agent Monitoring', href: '#agent-monitor', icon: CpuChipIcon, current: false },
+    { name: 'Dashboard Home', href: '/dashboard', current: true }, // Example
+    { name: 'Prior Authorization', href: '#prior-auth', current: false },
+    { name: 'Claims Management', href: '#claims-mgmt', current: false },
+    { name: 'Agent Monitoring', href: '#agent-monitor', current: false },
+    { name: 'Command Center', href: '/dashboard/command-center', current: false },
   ];
 
   return (
