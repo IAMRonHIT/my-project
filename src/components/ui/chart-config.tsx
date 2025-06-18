@@ -20,6 +20,7 @@ export const chartColors = {
   
   // Semi-transparent versions for backgrounds
   blueAlpha: 'rgba(0, 150, 255, 0.2)',
+  blueLightAlpha: 'rgba(51, 173, 255, 0.2)', // Added for chart fills
   greenAlpha: 'rgba(0, 200, 83, 0.2)',
   yellowAlpha: 'rgba(255, 171, 0, 0.2)',
   redAlpha: 'rgba(255, 61, 0, 0.2)',
