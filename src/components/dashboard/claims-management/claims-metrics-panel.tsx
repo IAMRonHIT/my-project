@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { GlassCard } from '@/components/ui/glass-card';
 import { AnimatedMetric, formatCurrency } from '@/components/ui/animated-metric';
+import { GlassCard } from '@/components/ui/glass-card';
 import { ChartContainer } from '@/components/ui/chart-container';
 import { chartColors } from '@/components/ui/chart-config';
 import {
@@ -13,13 +13,25 @@ import {
   BarElement,
   PointElement,
   LineElement,
+  ArcElement,
   Title,
   Tooltip,
   Legend,
   Filler,
 } from 'chart.js';
-import { Bar } from 'react-chartjs-2';
-import { ArrowTrendingUpIcon, BanknotesIcon, DocumentCheckIcon } from '@heroicons/react/24/outline';
+import { Doughnut, Line, Pie, Bar, PolarArea } from 'react-chartjs-2'; // Added PolarArea
+import { StatusIndicator, StatusType } from '@/components/ui/status-indicator'; // Import StatusType
+import {
+  CurrencyDollarIcon,
+  ClockIcon,
+  ExclamationTriangleIcon,
+  CheckCircleIcon,
+  XCircleIcon,
+  ArrowTrendingUpIcon,
+  ArrowTrendingDownIcon,
+  BanknotesIcon,
+  DocumentCheckIcon
+} from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 
 // Register ChartJS components
@@ -29,6 +41,7 @@ ChartJS.register(
   BarElement,
   PointElement,
   LineElement,
+  ArcElement,
   Title,
   Tooltip,
   Legend,
@@ -44,25 +57,287 @@ export function ClaimsMetricsPanel({ className }: ClaimsMetricsPanelProps) {
   const cleanClaimsRate = 93.5;
   const avgReimbursementTime = 18; // days
   const totalReimbursement = 2450000; // dollars
-  
-  // Top performing payers data
+  const denialRate = 6.5;
+  const appealSuccessRate = 78.2;
+  const avgProcessingTime = 3.2; // days
+
+  // Clean Claims Rate trend data (following Prior Auth style)
+  const cleanClaimsRateData = {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    datasets: [
+      {
+        label: 'Clean Claims %',
+        data: [89.5, 91.2, 90.8, 92.1, 91.0, 93.5],
+        borderColor: chartColors.blue,
+        backgroundColor: chartColors.blueAlpha,
+        borderWidth: 2,
+        tension: 0.4,
+        fill: true,
+        pointRadius: 0,
+      },
+    ],
+  };
+
+  // Reimbursement time trend (following Prior Auth style)
+  const reimbursementTimeData = {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    datasets: [
+      {
+        label: 'Avg Days',
+        data: [25, 23, 22, 21, 19, 18],
+        borderColor: chartColors.green,
+        backgroundColor: chartColors.greenAlpha,
+        borderWidth: 2,
+        tension: 0.4,
+        fill: true,
+        pointRadius: 0,
+      }
+    ],
+  };
+
+  // Monthly reimbursement (following Prior Auth bar style)
+  const monthlyReimbursementData = {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    datasets: [
+      {
+        label: 'Reimbursement',
+        data: [1890000, 2100000, 2350000, 2200000, 2070000, 2450000],
+        backgroundColor: [
+          chartColors.blueAlpha,
+          chartColors.blueAlpha,
+          chartColors.blueAlpha,
+          chartColors.blueAlpha,
+          chartColors.blueAlpha,
+          chartColors.blue,
+        ],
+        borderColor: [
+          chartColors.blue,
+          chartColors.blue,
+          chartColors.blue,
+          chartColors.blue,
+          chartColors.blue,
+          chartColors.blue,
+        ],
+        borderWidth: 2,
+        borderRadius: 4,
+        borderSkipped: false,
+      }
+    ],
+  };
+
+  // Denial reasons (following Prior Auth pie style with EXACT colors)
+  const denialReasonsData = {
+    labels: ['Missing Info', 'Not Covered', 'Prior Auth', 'Duplicate'],
+    datasets: [
+      {
+        label: 'Denial Rate',
+        data: [38, 29, 17, 16],
+        backgroundColor: [
+          chartColors.redAlpha, 
+          chartColors.yellowAlpha, // Changed from orangeAlpha
+          chartColors.blueAlpha,
+          chartColors.purpleAlpha,
+        ],
+        borderColor: [
+          chartColors.red, 
+          chartColors.yellow, // Changed from orange
+          chartColors.blue,
+          chartColors.purple,
+        ],
+        borderWidth: 3,
+        hoverOffset: 5,
+      },
+    ],
+  };
+
+  // Appeal success by type (following Prior Auth bar style)
+  const appealSuccessData = {
+    labels: ['Medical Necessity', 'Prior Auth', 'Coverage', 'Billing Error', 'Documentation'],
+    datasets: [
+      {
+        label: 'Success Rate',
+        data: [85, 72, 68, 92, 78],
+        backgroundColor: [
+          chartColors.blueAlpha,
+          chartColors.greenAlpha,
+          chartColors.purpleAlpha,
+          chartColors.yellowAlpha, 
+          chartColors.blueLightAlpha, // Changed from tealAlpha
+        ],
+        borderColor: [
+          chartColors.blue,
+          chartColors.green,
+          chartColors.purple,
+          chartColors.yellow,   
+          chartColors.blueLight,   // Changed from teal
+        ],
+        borderWidth: 2,
+        borderRadius: 4,
+        borderSkipped: false,
+      },
+    ],
+  };
+
+  // Processing time stages (following Prior Auth bar style)
+  const processingTimeData = {
+    labels: ['Submission', 'Review', 'Validation', 'Payment'],
+    datasets: [
+      {
+        label: 'Hours',
+        data: [24, 48, 18, 12],
+        backgroundColor: [
+          chartColors.blueAlpha,
+          chartColors.greenAlpha,
+          chartColors.yellowAlpha, 
+          chartColors.purpleAlpha, // Changed from tealAlpha
+        ],
+        borderColor: [
+          chartColors.blue,
+          chartColors.green,
+          chartColors.yellow,   
+          chartColors.purple,   // Changed from teal
+        ],
+        borderWidth: 2,
+        borderRadius: 4,
+        borderSkipped: false,
+      },
+    ],
+  };
+
+  // AR Aging data with new treemap visualization
+  const arAgingTreemapData = {
+    labels: ['0-30 Days', '31-60 Days', '61-90 Days', '90+ Days'],
+    datasets: [
+      {
+        label: 'AR Amount',
+        data: [1250000, 620000, 310000, 220000],
+        backgroundColor: [
+          chartColors.blueAlpha,
+          chartColors.greenAlpha,
+          chartColors.yellowAlpha, 
+          chartColors.redAlpha, 
+        ],
+        borderColor: [
+          chartColors.blue,
+          chartColors.green,
+          chartColors.yellow,   
+          chartColors.red,   
+        ],
+        borderWidth: 2,
+        borderRadius: 4,
+        borderSkipped: false,
+      },
+    ],
+  };
+
+  // Payer performance (following Prior Auth horizontal bar style)
   const payerPerformanceData = {
     labels: ['Aetna', 'UnitedHealth', 'Blue Cross', 'Cigna', 'Humana'],
     datasets: [
       {
-        label: 'Average Days to Payment',
-        data: [12, 14, 18, 22, 25],
-        backgroundColor: chartColors.blue,
+        label: 'First Time Success Rate',
+        data: [94, 89, 85, 78, 72],
+        backgroundColor: [
+          chartColors.blueAlpha,
+          chartColors.greenAlpha,
+          chartColors.purpleAlpha,
+          chartColors.yellowAlpha, 
+          chartColors.redAlpha, // Changed from orangeAlpha
+        ],
+        borderColor: [
+          chartColors.blue,
+          chartColors.green,
+          chartColors.purple,
+          chartColors.yellow,   
+          chartColors.red,   // Changed from orange
+        ],
+        borderWidth: 2,
         borderRadius: 4,
-      }
+        borderSkipped: false,
+      },
     ],
   };
-  
-  // Chart options
-  const barOptions = {
+
+  // Chart options (EXACT copy from Prior Auth)
+  const miniLineOptions = {
     responsive: true,
     maintainAspectRatio: false,
-    indexAxis: 'y' as const,
+    scales: {
+      y: { 
+        display: true,
+        ticks: {
+          color: '#ededed',
+          font: { size: 10 },
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.05)',
+        },
+      },
+      x: { 
+        display: true,
+        ticks: {
+          color: '#ededed',
+          font: { size: 10 },
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.05)',
+        },
+      },
+    },
+    plugins: { 
+      legend: { display: false }, 
+      tooltip: { 
+        enabled: true,
+        backgroundColor: 'rgba(26, 26, 26, 0.9)',
+        titleColor: '#ffffff',
+        bodyColor: '#ededed',
+        borderColor: 'rgba(255, 255, 255, 0.1)',
+      } 
+    },
+  };
+
+  const pieOptions = { // Renamed from donutOptions to match prior-auth
+    responsive: true,
+    maintainAspectRatio: false,
+    // cutout: '75%', // Removed for Pie chart if not desired, can be added for Doughnut
+    plugins: {
+      legend: {
+        position: 'right' as const,
+        align: 'center' as const,
+        labels: {
+          color: '#ededed',
+          usePointStyle: true,
+          pointStyle: 'circle',
+          padding: 16,
+          font: {
+            size: 11,
+          },
+        },
+      },
+      tooltip: {
+        backgroundColor: 'rgba(26, 26, 26, 0.9)',
+        titleColor: '#ffffff',
+        bodyColor: '#ededed',
+        borderColor: 'rgba(255, 255, 255, 0.1)',
+        borderWidth: 1,
+        padding: 10,
+        boxPadding: 6,
+        callbacks: {
+          // @ts-expect-error - Chart.js typing compatibility
+          label: function(context) {
+            const label = context.label || '';
+            const value = typeof context.raw === 'number' ? context.raw : 0;
+            return `${label}: ${value}%`;
+          }
+        }
+      },
+    },
+  };
+
+  const barOptions = { // Copied from prior-auth
+    responsive: true,
+    maintainAspectRatio: false,
+    indexAxis: 'y' as const, 
     scales: {
       x: {
         beginAtZero: true,
@@ -77,7 +352,7 @@ export function ClaimsMetricsPanel({ className }: ClaimsMetricsPanelProps) {
         },
         title: {
           display: true,
-          text: 'Days',
+          text: 'Rate (%)', // Updated to match prior-auth example if applicable
           color: '#ededed',
           font: {
             size: 12,
@@ -110,150 +385,313 @@ export function ClaimsMetricsPanel({ className }: ClaimsMetricsPanelProps) {
         boxPadding: 6,
         callbacks: {
           // @ts-expect-error - Chart.js typing compatibility
-          title: function(tooltipItems) {
-            return tooltipItems[0]?.label || '';
-          },
-          // @ts-expect-error - Chart.js typing compatibility
           label: function(context) {
+            const label = context.label || '';
             const value = typeof context.raw === 'number' ? context.raw : 0;
-            return `${value} days to payment`;
+            return `${label}: ${value}%`;
           }
         }
       },
     },
   };
 
-  // AR aging data
-  const arAgingCategories = [
-    { label: '0-30 Days', amount: 1250000, percentage: 52 },
-    { label: '31-60 Days', amount: 620000, percentage: 26 },
-    { label: '61-90 Days', amount: 310000, percentage: 13 },
-    { label: '90+ Days', amount: 220000, percentage: 9 },
-  ];
-  
-  // Calculate total AR
-  const totalAR = arAgingCategories.reduce((sum, category) => sum + category.amount, 0);
-  
-  // Get color for aging category
-  const getAgingColor = (index: number) => {
-    const colors = ['bg-success', 'bg-ai-blue', 'bg-warning', 'bg-error'];
-    return colors[index] || colors[0];
+  const verticalBarOptions = { // Copied from prior-auth (adapted for vertical)
+    responsive: true,
+    maintainAspectRatio: false,
+    // indexAxis: 'x' as const, // Default for vertical bar
+    scales: {
+      y: { // Y-axis for vertical bar
+        beginAtZero: true,
+        grid: {
+          color: 'rgba(255, 255, 255, 0.05)',
+        },
+        ticks: {
+          color: '#ededed',
+          font: {
+            size: 11,
+          },
+        },
+        title: {
+          display: true,
+          text: 'Amount', 
+          color: '#ededed',
+          font: {
+            size: 12,
+          },
+        },
+      },
+      x: { // X-axis for vertical bar
+        grid: {
+          display: false,
+        },
+        ticks: {
+          color: '#ededed',
+          font: {
+            size: 11,
+          },
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        display: false,
+      },
+      tooltip: {
+        backgroundColor: 'rgba(26, 26, 26, 0.9)',
+        titleColor: '#ffffff',
+        bodyColor: '#ededed',
+        borderColor: 'rgba(255, 255, 255, 0.1)',
+        borderWidth: 1,
+        padding: 10,
+        boxPadding: 6,
+        callbacks: {
+          // @ts-expect-error - Chart.js typing compatibility
+          label: function(context) {
+            const label = context.label || '';
+            const value = typeof context.raw === 'number' ? context.raw : 0;
+            return `${label}: ${formatCurrency(value)}`; // Assuming formatCurrency is available
+          }
+        }
+      },
+    },
   };
-  
+
   return (
-    <div className={clsx("grid grid-cols-1 lg:grid-cols-3 gap-4", className)}>
-      {/* Top metrics */}
-      <GlassCard className="p-5">
-        <h3 className="text-zinc-400 text-sm font-medium mb-4">Clean Claims Rate</h3>
-        <div className="flex items-center justify-center h-32">
-          <div className="text-center">
-            <AnimatedMetric
-              value={cleanClaimsRate}
-              suffix="%"
-              className="text-4xl font-bold text-white"
-              precision={1}
-            />
-            <div className="flex items-center justify-center mt-2 text-sm text-success">
-              <ArrowTrendingUpIcon className="h-4 w-4 mr-1" />
-              <span>+2.5% from last month</span>
-            </div>
-          </div>
-        </div>
-        <div className="text-center mt-2">
-          <div className="text-xs text-zinc-500">Industry benchmark: 90%</div>
-        </div>
-      </GlassCard>
-      
-      <GlassCard className="p-5">
-        <h3 className="text-zinc-400 text-sm font-medium mb-4">Average Reimbursement Time</h3>
-        <div className="flex items-center justify-center h-32">
-          <div className="text-center">
-            <AnimatedMetric
-              value={avgReimbursementTime}
-              suffix=" days"
-              className="text-4xl font-bold text-white"
-            />
-            <div className="flex items-center justify-center mt-2 text-sm text-success">
-              <ArrowTrendingUpIcon className="h-4 w-4 mr-1" />
-              <span>-3.5 days from last month</span>
-            </div>
-          </div>
-        </div>
-        <div className="text-center mt-2">
-          <div className="text-xs text-zinc-500">Industry benchmark: 25 days</div>
-        </div>
-      </GlassCard>
-      
-      <GlassCard className="p-5">
-        <h3 className="text-zinc-400 text-sm font-medium mb-4">Total Reimbursement (MTD)</h3>
-        <div className="flex items-center justify-center h-32">
-          <div className="text-center">
-            <AnimatedMetric
-              value={totalReimbursement}
-              formatter={formatCurrency}
-              className="text-4xl font-bold text-white"
-            />
-            <div className="flex items-center justify-center mt-2 text-sm text-success">
-              <BanknotesIcon className="h-4 w-4 mr-1" />
-              <span>+18.2% from last month</span>
-            </div>
-          </div>
-        </div>
-        <div className="text-center mt-2">
-          <div className="flex items-center justify-center text-xs text-zinc-500">
-            <DocumentCheckIcon className="h-3.5 w-3.5 mr-1" />
-            <span>2,450 claims processed</span>
-          </div>
-        </div>
-      </GlassCard>
-
-      {/* AR Aging */}
-      <GlassCard className="p-5 lg:col-span-2">
-        <h3 className="text-zinc-400 text-sm font-medium mb-4">AR Aging</h3>
-        <div className="space-y-4">
-          <div className="flex flex-col">
-            <div className="flex items-baseline justify-between mb-1">
-              <div className="text-xs text-zinc-500">Total AR Value</div>
-              <div className="text-xl font-semibold text-white">{formatCurrency(totalAR)}</div>
-            </div>
-            <div className="h-2 w-full bg-zinc-800 rounded-full overflow-hidden">
-              {arAgingCategories.map((category, index) => (
-                <div
-                  key={index}
-                  className={clsx("h-full float-left", getAgingColor(index), `w-[${category.percentage}%]`)}
+    <div className={clsx("grid grid-cols-1 lg:grid-cols-4 gap-4", className)}>
+      {/* Clean Claims Rate - Double Height */}
+      <GlassCard className="lg:col-span-2" glow="blue">
+        <div className="p-5">
+          <div className="flex justify-between items-start mb-4">
+            <div>
+              <h3 className="text-zinc-400 text-sm font-medium mb-2">Clean Claims Rate</h3>
+              <div className="flex items-baseline gap-2 mb-2">
+                <AnimatedMetric
+                  value={cleanClaimsRate}
+                  suffix="%"
+                  className="text-4xl font-bold text-white"
+                  precision={1}
                 />
-              ))}
-            </div>
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {arAgingCategories.map((category, index) => (
-              <motion.div
-                key={index}
-                className="p-3 bg-black/20 rounded-lg border border-zinc-800"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <div className="text-xs text-zinc-500 mb-1">{category.label}</div>
-                <div className="text-base font-semibold text-white">{formatCurrency(category.amount)}</div>
-                <div className="flex items-center justify-between mt-2">
-                  <div className={clsx("w-2.5 h-2.5 rounded-full", getAgingColor(index))}></div>
-                  <div className="text-xs text-zinc-400">{category.percentage}%</div>
+                <div className="flex items-center text-sm">
+                  <ArrowTrendingUpIcon className="h-4 w-4 text-green-400 mr-1" />
+                  <span className="text-green-400">+2.5%</span>
                 </div>
-              </motion.div>
-            ))}
+              </div>
+              <div className="text-xs text-zinc-500">Industry benchmark: 90%</div>
+            </div>
+            <StatusIndicator status="online" size="lg" /> 
+          </div>
+          <div className="h-96">
+            <ChartContainer>
+              <Line options={miniLineOptions} data={cleanClaimsRateData} />
+            </ChartContainer>
           </div>
         </div>
       </GlassCard>
 
-      {/* Payer Performance */}
-      <GlassCard className="p-5">
-        <h3 className="text-zinc-400 text-sm font-medium mb-4">Payer Performance</h3>
-        <div className="h-64">
-          <ChartContainer>
-            <Bar options={barOptions} data={payerPerformanceData} />
-          </ChartContainer>
+      {/* Average Reimbursement Time - Double Height */}
+      <GlassCard className="lg:col-span-2" glow="blue">
+        <div className="p-5">
+          <div className="flex justify-between items-start mb-4">
+            <div>
+              <h3 className="text-zinc-400 text-sm font-medium mb-2">Average Reimbursement Time</h3>
+              <div className="flex items-baseline gap-2 mb-2">
+                <AnimatedMetric
+                  value={avgReimbursementTime}
+                  suffix=" days"
+                  className="text-4xl font-bold text-white"
+                />
+                <div className="flex items-center text-sm">
+                  <ArrowTrendingDownIcon className="h-4 w-4 text-green-400 mr-1" />
+                  <span className="text-green-400">-3.5 days</span>
+                </div>
+              </div>
+              <div className="text-xs text-zinc-500">Industry benchmark: 25 days</div>
+            </div>
+            <ClockIcon className="h-8 w-8 text-blue-400 opacity-60" />
+          </div>
+          <div className="h-96">
+            <ChartContainer>
+              <Line options={miniLineOptions} data={reimbursementTimeData} />
+            </ChartContainer>
+          </div>
+        </div>
+      </GlassCard>
+
+      {/* Total Reimbursement - Double Height */}
+      <GlassCard className="lg:col-span-2" glow="blue">
+        <div className="p-5">
+          <div className="flex justify-between items-start mb-4">
+            <div>
+              <h3 className="text-zinc-400 text-sm font-medium mb-2">Total Reimbursement (MTD)</h3>
+              <div className="flex items-baseline gap-2 mb-2">
+                <AnimatedMetric
+                  value={totalReimbursement}
+                  formatter={formatCurrency}
+                  className="text-4xl font-bold text-white"
+                />
+                <div className="flex items-center text-sm">
+                  <ArrowTrendingUpIcon className="h-4 w-4 text-green-400 mr-1" />
+                  <span className="text-green-400">+18.2%</span>
+                </div>
+              </div>
+              <div className="text-xs text-zinc-500">2,450 claims processed</div>
+            </div>
+            <CurrencyDollarIcon className="h-8 w-8 text-purple-400 opacity-60" />
+          </div>
+          <div className="h-96">
+            <ChartContainer>
+              <Bar options={verticalBarOptions} data={monthlyReimbursementData} />
+            </ChartContainer>
+          </div>
+        </div>
+      </GlassCard>
+
+      {/* Denial Rate - Double Height */}
+      <GlassCard className="lg:col-span-2" glow="blue">
+        <div className="p-5">
+          <div className="flex justify-between items-start mb-4">
+            <div>
+              <h3 className="text-zinc-400 text-sm font-medium mb-2">Denial Rate</h3>
+              <div className="flex items-baseline gap-2 mb-2">
+                <AnimatedMetric
+                  value={denialRate}
+                  suffix="%"
+                  className="text-4xl font-bold text-white"
+                  precision={1}
+                />
+                <div className="flex items-center text-sm">
+                  <ArrowTrendingDownIcon className="h-4 w-4 text-green-400 mr-1" />
+                  <span className="text-green-400">-1.2%</span>
+                </div>
+              </div>
+              <div className="text-xs text-zinc-500">Breakdown by reason</div>
+            </div>
+            <ExclamationTriangleIcon className="h-8 w-8 text-red-400 opacity-60" />
+          </div>
+          <div className="h-96">
+            <ChartContainer>
+              <Pie options={pieOptions} data={denialReasonsData} />
+            </ChartContainer>
+          </div>
+        </div>
+      </GlassCard>
+
+      {/* Appeal Success Rate - Double Height */}
+      <GlassCard className="lg:col-span-2" glow="blue">
+        <div className="p-5">
+          <div className="flex justify-between items-start mb-4">
+            <div>
+              <h3 className="text-zinc-400 text-sm font-medium mb-2">Appeal Success Rate</h3>
+              <div className="flex items-baseline gap-2 mb-2">
+                <AnimatedMetric
+                  value={appealSuccessRate}
+                  suffix="%"
+                  className="text-4xl font-bold text-white"
+                  precision={1}
+                />
+                <div className="flex items-center text-sm">
+                  <ArrowTrendingUpIcon className="h-4 w-4 text-green-400 mr-1" />
+                  <span className="text-green-400">+5.1%</span>
+                </div>
+              </div>
+              <div className="text-xs text-zinc-500">Success by category</div>
+            </div>
+            <CheckCircleIcon className="h-8 w-8 text-green-400 opacity-60" />
+          </div>
+          <div className="h-96">
+            <ChartContainer>
+              <Bar options={barOptions} data={appealSuccessData} />
+            </ChartContainer>
+          </div>
+        </div>
+      </GlassCard>
+
+      {/* Processing Time - Double Height */}
+      <GlassCard className="lg:col-span-2" glow="blue">
+        <div className="p-5">
+          <div className="flex justify-between items-start mb-4">
+            <div>
+              <h3 className="text-zinc-400 text-sm font-medium mb-2">Avg Processing Time</h3>
+              <div className="flex items-baseline gap-2 mb-2">
+                <AnimatedMetric
+                  value={avgProcessingTime}
+                  suffix=" days"
+                  className="text-4xl font-bold text-white"
+                  precision={1}
+                />
+                <div className="flex items-center text-sm">
+                  <ArrowTrendingDownIcon className="h-4 w-4 text-green-400 mr-1" />
+                  <span className="text-green-400">-0.8 days</span>
+                </div>
+              </div>
+              <div className="text-xs text-zinc-500">Time by stage</div>
+            </div>
+            <ClockIcon className="h-8 w-8 text-cyan-400 opacity-60" />
+          </div>
+          <div className="h-96">
+            <ChartContainer>
+              <Bar options={verticalBarOptions} data={processingTimeData} />
+            </ChartContainer>
+          </div>
+        </div>
+      </GlassCard>
+
+      {/* AR Aging - NEW VISUAL - Double Height */}
+      <GlassCard className="lg:col-span-2" glow="blue">
+        <div className="p-5">
+          <div className="flex justify-between items-start mb-4">
+            <div>
+              <h3 className="text-zinc-400 text-sm font-medium mb-2">AR Aging Distribution</h3>
+              <div className="flex items-baseline gap-2 mb-2">
+                <AnimatedMetric
+                  value={2400000}
+                  formatter={formatCurrency}
+                  className="text-4xl font-bold text-white"
+                />
+                <div className="flex items-center text-sm">
+                  <ArrowTrendingDownIcon className="h-4 w-4 text-green-400 mr-1" />
+                  <span className="text-green-400">-8.5%</span>
+                </div>
+              </div>
+              <div className="text-xs text-zinc-500">Total AR value</div>
+            </div>
+            <BanknotesIcon className="h-8 w-8 text-yellow-400 opacity-60" />
+          </div>
+          <div className="h-96">
+            <ChartContainer>
+              <Bar options={verticalBarOptions} data={arAgingTreemapData} />
+            </ChartContainer>
+          </div>
+        </div>
+      </GlassCard>
+
+      {/* Payer Performance - Double Height */}
+      <GlassCard className="lg:col-span-2" glow="blue">
+        <div className="p-5">
+          <div className="flex justify-between items-start mb-4">
+            <div>
+              <h3 className="text-zinc-400 text-sm font-medium mb-2">Payer Performance</h3>
+              <div className="flex items-baseline gap-2 mb-2">
+                <AnimatedMetric
+                  value={83.6}
+                  suffix="%"
+                  className="text-4xl font-bold text-white"
+                  precision={1}
+                />
+                <div className="flex items-center text-sm">
+                  <ArrowTrendingUpIcon className="h-4 w-4 text-green-400 mr-1" />
+                  <span className="text-green-400">+2.1%</span>
+                </div>
+              </div>
+              <div className="text-xs text-zinc-500">First time submission rate</div>
+            </div>
+            <DocumentCheckIcon className="h-8 w-8 text-blue-400 opacity-60" />
+          </div>
+          <div className="h-96">
+            <ChartContainer>
+              <Bar options={barOptions} data={payerPerformanceData} />
+            </ChartContainer>
+          </div>
         </div>
       </GlassCard>
     </div>
